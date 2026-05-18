@@ -10,15 +10,7 @@ public class CustomHttpClient : ICustomHttpClient
         {
             using HttpClient client = new HttpClient();
             var data = await client.GetFromJsonAsync<ImageModel>(url);
-            var imageModel = new ImageModel
-            {
-                Success = data!.Success,
-                Data = new Dictionary<string, Memes[]>()
-                {
-
-                }
-            };
-            Console.WriteLine($"{imageModel.Success} {string.Join(", ", data.Data)}");
+            Console.WriteLine(data!.Data.Memes.Count());
         }
         catch (HttpRequestException e)
         {
@@ -39,7 +31,6 @@ public class CustomHttpClient : ICustomHttpClient
         {
             Console.WriteLine($"An error occured: {e.Message}");
         }
-
     }
 
     public Task GetDataByIdAsync(string url, int id)
